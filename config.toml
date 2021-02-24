@@ -1,3 +1,4 @@
 baseURL = "https://nikori1990.github.io/interview-java/"
 languageCode = "en-us"
 title = "Interview Java"
+theme = "hugo-geekdoc"
