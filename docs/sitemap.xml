@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+  <url>
+    <loc>https://nikori1990.github.io/interview-java/</loc>
+    <lastmod>2021-02-25T06:49:27+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://nikori1990.github.io/interview-java/posts/</loc>
+    <lastmod>2021-02-25T06:49:27+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://nikori1990.github.io/interview-java/posts/test/</loc>
+    <lastmod>2021-02-25T06:49:27+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://nikori1990.github.io/interview-java/categories/</loc>
+  </url>
+  
+  <url>
+    <loc>https://nikori1990.github.io/interview-java/tags/</loc>
+  </url>
+  
+</urlset>
