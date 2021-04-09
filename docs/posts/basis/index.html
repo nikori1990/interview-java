@@ -2,12 +2,11 @@
 <html lang="en">
 
 <head>
-	<meta name="generator" content="Hugo 0.82.0" />
     <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Interview - Java">
+<meta name="description" content="Basis">
 
-<title>Interview - Java | Interview - Java</title>
+<title>Basis | Interview - Java</title>
 
 <link rel="icon" href="/interview-java/favicon/favicon-32x32.png" type="image/x-icon">
 
@@ -32,7 +31,6 @@
 <link rel="preload" href="/interview-java/custom.css" as="style">
 <link rel="stylesheet" href="/interview-java/custom.css" media="all">
 
-<link rel="alternate" type="application/rss+xml" href="https://nikori1990.github.io/interview-java/index.xml" title="Interview - Java" />
 <!-- Made with Geekdoc theme https://github.com/thegeeklab/hugo-geekdoc -->
 
 </head>
@@ -120,7 +118,7 @@
             
             
                 <span class="flex">
-                    <a href="/interview-java/posts/basis/" class="gdoc-nav__entry ">
+                    <a href="/interview-java/posts/basis/" class="gdoc-nav__entry is-active">
                         Basis
                     </a>
                 </span>
@@ -181,43 +179,161 @@
 
             <div class="gdoc-page">
                 
-    
+    <article class="gdoc-markdown gdoc-post">
+      <header class="gdoc-post__header">
+        <h1 class="gdoc-post__title">Basis</h1>
+        <div class="gdoc-post__date">
+            <svg class="icon date"><use xlink:href="#date"></use></svg>
+            <time datetime="2021-04-08T06:29:39&#43;08:00">
+                
+                Apr 8, 2021
+            </time>
+        </div>
+      </header>
+      <div>
+        <ul>
+<li><a class="gdoc-markdown__link" href="#1-%e5%9f%ba%e7%a1%80">1. 基础</a>
+<ul>
+<li><a class="gdoc-markdown__link" href="#11-%e6%ad%a3%e7%a1%ae%e4%bd%bf%e7%94%a8-equals-%e6%96%b9%e6%b3%95">1.1. 正确使用 equals 方法</a></li>
+<li>[1.2. 整型包装类值的比较]</li>
+<li>[1.3. BigDecimal]
+<ul>
+<li>[1.3.1. BigDecimal 的用处]</li>
+<li>[1.3.2. BigDecimal 的大小比较]</li>
+<li>[1.3.3. BigDecimal 保留几位小数]</li>
+<li>[1.3.4. BigDecimal 的使用注意事项]</li>
+<li>[1.3.5. 总结]</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<div class="gdoc-page__anchorwrap">
+    <h1 id="1-基础">
+        1. 基础
+        <a data-clipboard-text="https://nikori1990.github.io/interview-java/posts/basis/#1-基础" class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor 1. 基础" href="#1-%e5%9f%ba%e7%a1%80">
+            <svg class="icon link"><use xlink:href="#link"></use></svg>
+        </a>
+    </h1>
+</div><div class="gdoc-page__anchorwrap">
+    <h2 id="11-正确使用-equals-方法">
+        1.1. 正确使用 equals 方法
+        <a data-clipboard-text="https://nikori1990.github.io/interview-java/posts/basis/#11-正确使用-equals-方法" class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor 1.1. 正确使用 equals 方法" href="#11-%e6%ad%a3%e7%a1%ae%e4%bd%bf%e7%94%a8-equals-%e6%96%b9%e6%b3%95">
+            <svg class="icon link"><use xlink:href="#link"></use></svg>
+        </a>
+    </h2>
+</div><p>Object 的 equeals 方法容易抛空指针异常， 应使用常量或确定有值的对象来调用 equals 。</p>
+<p>举个例子:</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="c1">// 不能使用一个值为null的引用类型变量来调用非静态方法， 否则会抛出异常
+</span><span class="c1"></span><span class="n">String</span> <span class="n">str</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+
+<span class="k">if</span><span class="o">(</span><span class="n">str</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="s">&#34;nikori&#34;</span><span class="o">))</span> <span class="o">{</span>
+    <span class="o">...</span>
+<span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+    <span class="o">...</span>
+<span class="o">}</span>
+</code></pre></div><p>运行上面的程序会抛出空指针异常，但是我们把第二行的条件判断语句改为下面这样的花，就不会抛出空指针异常，  else 语句块得到执行。</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="s">&#34;nikori&#34;</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">str</span><span class="o">)</span> <span class="c1">// false
+</span></code></pre></div><p>不过更推荐使用 <code>java.util.Objects#equals</code> (JDK7 引入的工具类)</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">Objects</span><span class="o">.</span><span class="na">equeals</span><span class="o">(</span><span class="n">str</span><span class="o">,</span> <span class="s">&#34;nikori&#34;</span><span class="o">)</span> <span class="c1">// false
+</span></code></pre></div><p>我们看一下 <code>java.util.Objects#equals</code> 的源码就知道原因了</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">static</span> <span class="kt">boolean</span> <span class="nf">equals</span><span class="o">(</span><span class="n">Object</span> <span class="n">a</span><span class="o">,</span> <span class="n">Object</span> <span class="n">b</span><span class="o">)</span> <span class="o">{</span>
+    <span class="c1">// 可以避免空指针异常， 如果a == null 的话， 此时 a.equals(b) 就不会得到执行
+</span><span class="c1"></span>    <span class="k">return</span> <span class="o">(</span><span class="n">a</span> <span class="o">==</span> <span class="n">b</span><span class="o">)</span> <span class="o">||</span> <span class="o">(</span><span class="n">a</span> <span class="o">!=</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="n">a</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">b</span><span class="o">))</span>
+<span class="o">}</span>
+</code></pre></div><p><strong>注意：</strong></p>
+<p>Refrence: [Java 中equals方法造成空指针异常的原因及解决方案]</p>
+<div class="gdoc-page__anchorwrap">
+    <h2 id="12-整型包装类值的比较">
+        1.2. 整型包装类值的比较
+        <a data-clipboard-text="https://nikori1990.github.io/interview-java/posts/basis/#12-整型包装类值的比较" class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor 1.2. 整型包装类值的比较" href="#12-%e6%95%b4%e5%9e%8b%e5%8c%85%e8%a3%85%e7%b1%bb%e5%80%bc%e7%9a%84%e6%af%94%e8%be%83">
+            <svg class="icon link"><use xlink:href="#link"></use></svg>
+        </a>
+    </h2>
+</div><p>所有整型包装类对象的比较必须使用equals方法。</p>
+<p>先看下面这个例子：</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">Integer</span> <span class="n">x</span> <span class="o">=</span> <span class="n">3</span><span class="o">;</span>
+<span class="n">Integer</span> <span class="n">y</span> <span class="o">=</span> <span class="n">3</span><span class="o">;</span>
+
+<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">x</span> <span class="o">==</span> <span class="n">y</span><span class="o">);</span> <span class="c1">//true
+</span><span class="c1"></span>
+<span class="n">Integer</span> <span class="n">a</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Integer</span><span class="o">(</span><span class="n">3</span><span class="o">);</span>
+<span class="n">Integer</span> <span class="n">b</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Integer</span><span class="o">(</span><span class="n">3</span><span class="o">);</span>
+
+<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">a</span> <span class="o">==</span> <span class="n">b</span><span class="o">);</span> <span class="c1">//false
+</span><span class="c1"></span>
+<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">a</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">b</span><span class="o">));</span> <span class="c1">//true
+</span></code></pre></div><p>当使用自动装箱方式创建一个 Integer 对象时，当数值在 -128 ~ 127 时，会将创建的 Integer 对象缓存起来， 当下次再出现该值时，直接从缓存中取出对应的 Integer 对象。</p>
+<p><strong>注意：</strong> 如果你的IDE 上安装了阿里巴巴的p3c插件， 这个插件如果检测到你用==的话会报错误提示，推荐安装一个这个插件，很不错。</p>
+<div class="gdoc-page__anchorwrap">
+    <h2 id="13-bigdecimal">
+        1.3. BigDecimal
+        <a data-clipboard-text="https://nikori1990.github.io/interview-java/posts/basis/#13-bigdecimal" class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor 1.3. BigDecimal" href="#13-bigdecimal">
+            <svg class="icon link"><use xlink:href="#link"></use></svg>
+        </a>
+    </h2>
+</div><div class="gdoc-page__anchorwrap">
+    <h3 id="131-bigdecimal的用处">
+        1.3.1. BigDecimal的用处
+        <a data-clipboard-text="https://nikori1990.github.io/interview-java/posts/basis/#131-bigdecimal的用处" class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor 1.3.1. BigDecimal的用处" href="#131-bigdecimal%e7%9a%84%e7%94%a8%e5%a4%84">
+            <svg class="icon link"><use xlink:href="#link"></use></svg>
+        </a>
+    </h3>
+</div><p>《阿里巴巴Java开发手册》中提到： <strong>浮点数之间的等值判断，基本数据类型不能用==比较，包装数据类型不能用equals来判断。</strong> 具体原理和浮点数的编码方式有关，这里就不多提了，我们下面直接上实例：</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kt">float</span> <span class="n">a</span> <span class="o">=</span> <span class="n">1</span><span class="o">.</span><span class="na">0f</span> <span class="o">-</span> <span class="n">0</span><span class="o">.</span><span class="na">9f</span><span class="o">;</span>
+<span class="kt">float</span> <span class="n">b</span> <span class="o">=</span> <span class="n">0</span><span class="o">.</span><span class="na">9f</span> <span class="o">-</span> <span class="n">0</span><span class="o">.</span><span class="na">8f</span><span class="o">;</span>
+
+<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">a</span><span class="o">);</span> <span class="c1">//0.100000024
+</span><span class="c1"></span><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">b</span><span class="o">);</span> <span class="c1">//0.099999964
+</span><span class="c1"></span>
+<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">a</span> <span class="o">==</span> <span class="n">b</span><span class="o">);</span> <span class="c1">//false
+</span></code></pre></div><p>具有基本数学只是的我们很清楚的知道输出并不是我们想要的结果（<strong>精度丢失</strong>）， 我们如何解决这个问题呢？一种很常用的方法是： <strong>使用BigDecimal来定义浮点数的值，再进行浮点数的运算操作</strong>。</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">BigDecimal</span> <span class="n">a</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BigDecimal</span><span class="o">(</span><span class="s">&#34;1.0&#34;</span><span class="o">);</span>
+<span class="n">BigDecimal</span> <span class="n">b</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BigDecimal</span><span class="o">(</span><span class="s">&#34;0.9&#34;</span><span class="o">);</span>
+<span class="n">BigDecimal</span> <span class="n">c</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BigDecimal</span><span class="o">(</span><span class="s">&#34;0.8&#34;</span><span class="o">);</span>
+
+<span class="n">BigDecimal</span> <span class="n">x</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="na">subtract</span><span class="o">(</span><span class="n">b</span><span class="o">);</span>
+<span class="n">BigDecimal</span> <span class="n">y</span> <span class="o">=</span> <span class="n">b</span><span class="o">.</span><span class="na">subtract</span><span class="o">(</span><span class="n">c</span><span class="o">);</span>
+
+<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">x</span><span class="o">);</span> <span class="cm">/* 0.1 */</span>
+<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">y</span><span class="o">);</span> <span class="cm">/* 0.1 */</span>
+<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">Objects</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">x</span><span class="o">,</span> <span class="n">y</span><span class="o">));</span> <span class="cm">/* true */</span>
+</code></pre></div><div class="gdoc-page__anchorwrap">
+    <h3 id="132-bigdecimal-的大小比较">
+        1.3.2. BigDecimal 的大小比较
+        <a data-clipboard-text="https://nikori1990.github.io/interview-java/posts/basis/#132-bigdecimal-的大小比较" class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor 1.3.2. BigDecimal 的大小比较" href="#132-bigdecimal-%e7%9a%84%e5%a4%a7%e5%b0%8f%e6%af%94%e8%be%83">
+            <svg class="icon link"><use xlink:href="#link"></use></svg>
+        </a>
+    </h3>
+</div><p><code>a.compareTo(b)</code> : 返回 -1 表示 <code>a</code> 小于 <code>b</code>, 0 表示 <code>a</code> 等于 <code>b</code>, 1 表示 <code>a</code> 大于 <code>b</code>。</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">BigDecimal</span> <span class="n">a</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BigDecimal</span><span class="o">(</span><span class="s">&#34;1.0&#34;</span><span class="o">);</span> 
+<span class="n">BigDecimal</span> <span class="n">b</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BigDecimal</span><span class="o">(</span><span class="s">&#34;0.9&#34;</span><span class="o">);</span>
+
+<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">a</span><span class="o">.</span><span class="na">compareTo</span><span class="o">(</span><span class="n">b</span><span class="o">));</span> <span class="c1">// 1;
+</span></code></pre></div><div class="gdoc-page__anchorwrap">
+    <h3 id="133-bigdecimal-保留几位小数">
+        1.3.3. BigDecimal 保留几位小数
+        <a data-clipboard-text="https://nikori1990.github.io/interview-java/posts/basis/#133-bigdecimal-保留几位小数" class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor 1.3.3. BigDecimal 保留几位小数" href="#133-bigdecimal-%e4%bf%9d%e7%95%99%e5%87%a0%e4%bd%8d%e5%b0%8f%e6%95%b0">
+            <svg class="icon link"><use xlink:href="#link"></use></svg>
+        </a>
+    </h3>
+</div><p>通过 <code>setScale</code> 方法设置保留几位小数以及保留规则。保留规则有挺多种，不需要记，IDEA会提示。</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">BigDecimal</span> <span class="n">m</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BigDecimal</span><span class="o">(</span><span class="s">&#34;1.255433&#34;</span><span class="o">);</span>
+<span class="n">BigDecimal</span> <span class="n">n</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="na">setScale</span><span class="o">(</span><span class="n">3</span><span class="o">,</span> <span class="n">BigDecimal</span><span class="o">.</span><span class="na">ROUND_HALF_DOWN</span><span class="o">);</span>
+
+<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">n</span><span class="o">);</span> <span class="c1">// 1.255
+</span></code></pre></div><div class="gdoc-page__anchorwrap">
+    <h3 id="134-bigdecimal-的使用注意事项">
+        1.3.4. BigDecimal 的使用注意事项
+        <a data-clipboard-text="https://nikori1990.github.io/interview-java/posts/basis/#134-bigdecimal-的使用注意事项" class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor 1.3.4. BigDecimal 的使用注意事项" href="#134-bigdecimal-%e7%9a%84%e4%bd%bf%e7%94%a8%e6%b3%a8%e6%84%8f%e4%ba%8b%e9%a1%b9">
+            <svg class="icon link"><use xlink:href="#link"></use></svg>
+        </a>
+    </h3>
+</div><p>注意：我们在使用BigDecimal时，为了防止精度丢失，推荐使用它的 <strong>BigDecimal(String)</strong> 构造方法来创建对象。 《阿里巴巴java开发手册》 对这部分内容也有提到。</p>
+<p><img src="/interview-java/images/BigDecimal.jpg" alt="BigDecimal"  /></p>
 
 
-    
-
-
-
-
-
-
-<div class="gdoc-page__header flex flex-wrap
-     justify-between 
-     hidden-mobile 
-    " itemprop="breadcrumb">
-    
-    <div>
-        <svg class="icon path hidden-mobile"><use xlink:href="#path"></use></svg>
-        <ol class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
-            
-            
-            
-            
-    
-    
-        <li itemprop='itemListElement' itemscope itemtype='https://schema.org/ListItem'><span itemprop='name'>Interview - Java</span><meta itemprop='position' content='2' /></li>
-    
-
-        </ol>
-    </div>
-    
-    
-</div>
-
-    <article class="gdoc-markdown">
-        <h1>Interview - Java</h1>
-        
-
+      </div>
     </article>
 
                 

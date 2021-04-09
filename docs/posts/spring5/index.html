@@ -4,9 +4,9 @@
 <head>
     <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Test">
+<meta name="description" content="Spring5">
 
-<title>Test | Interview - Java</title>
+<title>Spring5 | Interview - Java</title>
 
 <link rel="icon" href="/interview-java/favicon/favicon-32x32.png" type="image/x-icon">
 
@@ -118,8 +118,32 @@
             
             
                 <span class="flex">
-                    <a href="/interview-java/posts/test/" class="gdoc-nav__entry is-active">
-                        Test
+                    <a href="/interview-java/posts/basis/" class="gdoc-nav__entry ">
+                        Basis
+                    </a>
+                </span>
+            
+            
+
+            
+            </li>
+            
+            
+            
+
+            
+            
+            
+            
+            
+            
+
+            <li>
+            
+            
+                <span class="flex">
+                    <a href="/interview-java/posts/spring5/" class="gdoc-nav__entry is-active">
+                        Spring5
                     </a>
                 </span>
             
@@ -157,24 +181,121 @@
                 
     <article class="gdoc-markdown gdoc-post">
       <header class="gdoc-post__header">
-        <h1 class="gdoc-post__title">Test</h1>
+        <h1 class="gdoc-post__title">Spring5</h1>
         <div class="gdoc-post__date">
             <svg class="icon date"><use xlink:href="#date"></use></svg>
-            <time datetime="2021-02-25T06:49:27&#43;08:00">
+            <time datetime="2021-03-26T11:17:51&#43;08:00">
                 
-                Feb 25, 2021
+                Mar 26, 2021
             </time>
         </div>
       </header>
       <div>
         <div class="gdoc-page__anchorwrap">
-    <h3 id="this-is-test-post">
-        this is test post
-        <a data-clipboard-text="https://nikori1990.github.io/interview-java/posts/test/#this-is-test-post" class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor this is test post" href="#this-is-test-post">
+    <h3 id="spring-框架概述">
+        Spring 框架概述
+        <a data-clipboard-text="https://nikori1990.github.io/interview-java/posts/spring5/#spring-框架概述" class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Spring 框架概述" href="#spring-%e6%a1%86%e6%9e%b6%e6%a6%82%e8%bf%b0">
             <svg class="icon link"><use xlink:href="#link"></use></svg>
         </a>
     </h3>
-</div>
+</div><ol>
+<li>Spring 是轻量级的开源的 JavaEE 框架</li>
+<li>Spring 可以解决企业应用开发的复杂性</li>
+<li>Spring 有两个核心部分： IOC 和 AOP
+<ul>
+<li>IOC: 控制反转， 把创建对象的过程交给Spring进行管理</li>
+<li>AOP: 面向切面， 不修改源代码进行功能增强</li>
+</ul>
+</li>
+<li>Spring 特点
+<ul>
+<li>方便解耦</li>
+<li>AOP编程支持</li>
+<li>方便程序测试</li>
+<li>方便和其他框架进行整合</li>
+<li>方便进行事物操作</li>
+<li>降低API开发难度</li>
+</ul>
+</li>
+</ol>
+<blockquote>
+<p>IOC （概念和原理）</p>
+</blockquote>
+<ol>
+<li>
+<p>什么是IOC</p>
+<ul>
+<li>控制反转， 把对象创建和对象之间的调用过程，交给Spring进行管理</li>
+<li>使用IOC目的， 为了耦合度降低</li>
+</ul>
+</li>
+<li>
+<p>IOC底层原理</p>
+<ul>
+<li>xml 解析</li>
+<li>工厂模式</li>
+<li>反射</li>
+</ul>
+</li>
+</ol>
+<blockquote>
+<p>Spring 提供 IOC 容器实现两种方式： （两个接口）</p>
+</blockquote>
+<ol>
+<li>BeanFactory</li>
+</ol>
+<pre><code>IOC 容器基本实现，是Spring内部的使用接口，不提供开发人员进行使用
+接口加载配置文件的时候不会创建对象，在获取（使用）对象时才会去创建对象
+</code></pre><ol start="2">
+<li>ApplicationContext</li>
+</ol>
+<pre><code>BeanFactory接口的子接口，提供更多更强大的功能，一般由开发人员进行使用
+加载配置文件的时候创建对象
+</code></pre><ol start="3">
+<li>ApplicationContext 接口的实现类
+<ul>
+<li>FileSystemXmlApplicationContext 全路径</li>
+<li>ClassPathXmlApplicationContext  相对项目路径</li>
+</ul>
+</li>
+</ol>
+<blockquote>
+<p>IOC 操作 Bean 管理</p>
+</blockquote>
+<ol>
+<li>
+<p>什么是Bean管理</p>
+<ul>
+<li>Bean 管理指的是两个操作
+<ol>
+<li>Spring 创建对象</li>
+<li>Spring 注入属性</li>
+</ol>
+</li>
+<li>Bean 管理操作有两种方式
+<ol>
+<li>基于xml配置文件方式实现</li>
+<li>基于注解方式实现</li>
+</ol>
+</li>
+</ul>
+<blockquote>
+<p>基于 xml 方式创建对象</p>
+</blockquote>
+<pre><code>    &lt;bean id=&quot;user&quot; class=&quot;cn.nikori.User&quot;&gt;&lt;/bean&gt;
+</code></pre><ul>
+<li>bean 标签有很多属性，常用的属性： id 唯一标识， class 类全路径（包类路径）</li>
+<li>创建对象时候，默认也是执行无参构造方法完成对象创建</li>
+</ul>
+<blockquote>
+<p>基于 xml 方式注入属性</p>
+</blockquote>
+<ol>
+<li>DI: 依赖注入， 就是注入属性</li>
+</ol>
+</li>
+</ol>
+
 
       </div>
     </article>
@@ -223,7 +344,7 @@
 
 
 
-<script defer src="/interview-java/js/en.search.min.e4c8bb754e56a4412662b058f507d87233905d2d12a97384479a9d99c17fadaf.js"></script>
+<script defer src="/interview-java/js/en.search.min.e24c7214889a8b8267b3d306989d41a53c4c70577e3c66845688b54ad98a81f7.js"></script>
 
 
 
